@@ -12,14 +12,14 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
-ENV PATH="${PATH}:/root/.poetry/bin"
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    mv /root/.local/bin/poetry /usr/local/bin/
 
 # Copy only the dependency files to leverage Docker cache
 COPY pyproject.toml ./
 
 # Install project dependencies
-RUN poetry install --no-root
+RUN poetry install
 
 # Copy the rest of the application code
 COPY . .

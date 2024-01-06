@@ -32,7 +32,7 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    command: python app/main.py
+    command: poetry shell && python app/main.py
     tty: true
     volumes:
       - ./backend:/backend/:cached
